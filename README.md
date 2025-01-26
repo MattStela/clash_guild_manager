@@ -1,7 +1,7 @@
 # Projeto de Informações da Guilda do Clash of Clans
 
 ## Descrição
-Este projeto exibe informações sobre a guilda do jogo Clash of Clans, incluindo membros e histórico de guerras. Utiliza a API oficial do Clash of Clans.
+Este projeto exibe informações sobre a guilda do jogo Clash of Clans para melhore gerenciamento dos líderes, incluindo membros e histórico de guerras. Utiliza a API oficial do Clash of Clans. 
 
 ## Pré-requisitos
 - No jogo, coloque as informações da guilda como públicas.
@@ -26,4 +26,8 @@ Este projeto exibe informações sobre a guilda do jogo Clash of Clans, incluind
 4. Acesse no navegador [localhost](http://localhost:3000/).
 
 ## Seja feliz
-Com as informações configuradas e o projeto em execução, aproveite para explorar as informações da sua guilda do Clash of Clans.
+Com as informações configuradas e o projeto em execução, explore as informações da sua guilda do Clash of Clans.
+
+Observação: Eu tentei configurar um host, encarei o próprio diabo e voltei da minha miséria. Não tente.
+
+Observação 2: Caso algum administrador ou desenvolvedor do jogo deseje que esse código seja removido a qualquer momento, me contate :D

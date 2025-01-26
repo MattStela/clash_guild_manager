@@ -23,6 +23,14 @@ export default function LateralMenu() {
         { name: "Histórico de guerras", link: "/history" },
       ],
     },
+    {
+        title: "Aff",
+        subitems: [
+          { name: "Guerra Atual", link: "/war" },
+          { name: "Membros", link: "/members" },
+          { name: "Histórico de guerras", link: "/history" },
+        ],
+      },
   ];
 
   return (
@@ -37,10 +45,10 @@ export default function LateralMenu() {
         {isOpen ? (
           <TbLayoutSidebarRightExpandFilled
             size={40}
-            className="text-gray-400"
+            className="ml-4 text-gray-400"
           />
         ) : (
-          <TbLayoutSidebarLeftExpand size={40} className="text-gray-400" />
+          <TbLayoutSidebarLeftExpand size={30} className="text-gray-400" />
         )}
       </div>
 
@@ -53,7 +61,7 @@ export default function LateralMenu() {
         {items.map((item, index) => (
           <div
             key={index}
-            className="space-y-1 flex flex-col justify-center items-start flex-grow"
+            className="space-y-1 flex flex-col justify-center items-start py-2"
           >
             <div className="flex flex-row space-x-1 justify-center items-center text-white">
               <FaFolderOpen size={20} />

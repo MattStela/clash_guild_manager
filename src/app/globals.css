@@ -14,8 +14,28 @@
   }
 }
 
+/* globals.css */
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  min-height: 100vh;
 }
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/bg-clash.jpg");
+  background-size: cover;  /* Ajusta a imagem de fundo para cobrir toda a área */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;  /* Faz a imagem de fundo ser fixa */
+  opacity: 0.2;  /* Adiciona opacidade à imagem de fundo */
+  z-index: -1;  /* Coloca a imagem de fundo atrás do conteúdo */
+}
+
