@@ -20,7 +20,7 @@ export default function LateralMenu() {
       subitems: [
         { name: "Guerra Atual", link: "/war" },
         { name: "Membros", link: "/members" },
-        { name: "Histórico de guerras", link: "/war-history" },
+        { name: "Histórico de guerras", link: "/history" },
       ],
     },
   ];

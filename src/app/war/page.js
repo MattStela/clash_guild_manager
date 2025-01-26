@@ -32,7 +32,7 @@ function formatDate(dateString) {
   return `${formattedDay}/${formattedMonth}/${formattedYear} - ${formattedHours}:${formattedMinutes}`;
 }
 
-export default function Info() {
+export default function War() {
   const [clanTag, setClanTag] = useState("#2J8JP9RJR");
   const [clanName, setClanName] = useState("");
   const [currentWar, setCurrentWar] = useState(null);
@@ -75,7 +75,6 @@ export default function Info() {
         >
           Buscar
         </button>
-      
       </div>
       <br />
 
@@ -100,125 +99,131 @@ export default function Info() {
           <div className="flex flex-col mt-4 w-full sm:flex-row justify-center items-start">
             {/*=================== clã pesquisado ===================*/}
             {currentWar && currentWar.clan && currentWar.clan.members && (
-            <div className="flex flex-col items-start sm:items-end w-1/2 text-white mx-4">
-              <h2 className="text-xl font-bold">Clã</h2>
-              <p>Nome: {currentWar.clan.name}</p>
-              <p>Nível: {currentWar.clan.clanLevel}</p>
-              <p>Ataques: {currentWar.clan.attacks}</p>
-              <p>Estrelas: {currentWar.clan.stars}</p>
-              <p>
-                Destruição: {currentWar.clan.destructionPercentage.toFixed(2)}%
-              </p>
-              <img src={currentWar.clan.badgeUrls.medium} alt="Clan Badge" />
+              <div className="flex flex-col items-start sm:items-end w-1/2 text-white mx-4">
+                <h2 className="text-xl font-bold">Clã</h2>
+                <p>{currentWar.clan.name}</p>
+                <p>Ataques - {currentWar.clan.attacks}</p>
 
-              <h3 className="text-lg font-bold mt-4">Membros</h3>
-              {currentWar.clan.members
-                .sort((a, b) => a.mapPosition - b.mapPosition)
-                .map((member) => (
-                  <div
-                    key={member.tag}
-                    className="flex flex-col items-start sm:items-end mt-2"
-                  >
-                    <p>{member.name}</p>
-                    <div className="flex flex-row">
-                      <p className="text-gray-500">Centro de Vila -</p>&nbsp;
-                      <p>{member.townhallLevel}</p>
-                    </div>
-                    <div className="flex flex-row">
-                      <p className="text-gray-500">Posição no mapa -</p>&nbsp;
-                      <p>{member.mapPosition}</p>
-                    </div>
-                    <div className="flex flex-row">
-                      <p className="text-gray-500">Ataques sofridos -</p>&nbsp;
-                      <p>{member.opponentAttacks}</p>
-                    </div>
+                <div className="flex flex-row justify-center items-center">
+                  {" "}
+                  <p>{currentWar.clan.stars} </p>
+                  <FaStar size={12} className="text-yellow-500" />
+                </div>
 
-                    {/*============================ Ataques ==================================*/}
+                <p>
+                  Destruição: {currentWar.clan.destructionPercentage.toFixed(2)}
+                  %
+                </p>
+                <img className="h-24 mt-4" src={currentWar.clan.badgeUrls.medium} alt="Clan Badge" />
 
-                    {member.attacks && (
-                      <div className="text-xs flex flex-col justify-center items-end">
-                        {/* Primeiro Ataque */}
-                        <div className="flex flex-col justify-center items-end mt-2">
-                          <div className="flex flex-col justify-center items-center">
-                            <strong className="text-blue-400">
-                              1º Ataque
-                            </strong>
-
-                            <div className="flex flex-row justify-center items-center">
-                              {member.attacks[0]
-                                ? Array.from({
-                                    length: member.attacks[0].stars,
-                                  }).map((_, index) => (
-                                    <FaStar
-                                      key={index}
-                                      size={12}
-                                      className="text-yellow-500"
-                                    />
-                                  ))
-                                : "N/A"}
-                            </div>
-
-                            <div>
-                              {member.attacks[0]
-                                ? member.attacks[0].destructionPercentage
-                                : "N/A"}
-                              %
-                            </div>
-                            {member.attacks[0]
-                              ? `${member.attacks[0].duration} seg.`
-                              : "N/A"}
-                          </div>
-                        </div>
-
-                        {/* Segundo Ataque */}
-                        <div className="flex flex-col justify-center items-end mt-2">
-                          <div className="flex flex-col justify-center items-center">
-                            <strong className="text-blue-400">
-                              2º Ataque
-                            </strong>
-
-                            <div className="flex flex-row justify-center items-center">
-                              {member.attacks[1]
-                                ? Array.from({
-                                    length: member.attacks[1].stars,
-                                  }).map((_, index) => (
-                                    <FaStar
-                                      key={index}
-                                      size={12}
-                                      className="text-yellow-500"
-                                    />
-                                  ))
-                                : "N/A"}
-                            </div>
-
-                            <div>
-                              {member.attacks[1]
-                                ? member.attacks[1].destructionPercentage
-                                : "N/A"}
-                              %
-                            </div>
-                            {member.attacks[1]
-                              ? `${member.attacks[1].duration} seg.`
-                              : "N/A"}
-                          </div>
-                        </div>
-
+                <h3 className="text-lg font-bold mt-4">Membros</h3>
+                {currentWar.clan.members
+                  .sort((a, b) => a.mapPosition - b.mapPosition)
+                  .map((member) => (
+                    <div
+                      key={member.tag}
+                      className="flex flex-col items-start sm:items-end mt-2"
+                    >
+                      <p>{member.mapPosition}. {member.name}</p>
+                      <div className="flex flex-row">
+                        <p className="text-gray-500">Centro de Vila -</p>&nbsp;
+                        <p>{member.townhallLevel}</p>
                       </div>
-                    )}
-                  </div>
-                ))}
-            </div>
+                      <div className="flex flex-row">
+                        <p className="text-gray-500">Ataques sofridos -</p>
+                        &nbsp;
+                        <p>{member.opponentAttacks}</p>
+                      </div>
+
+                      {/*============================ Ataques ==================================*/}
+
+                      {member.attacks && (
+                        <div className="text-xs flex flex-row justify-center space-x-2 items-center">
+                          {/* Primeiro Ataque */}
+                          <div className="flex flex-col justify-center items-end">
+                            <div className="flex flex-col justify-center items-center">
+                              <strong className="text-blue-400">
+                                1º Ataque
+                              </strong>
+
+                              <div className="flex flex-row justify-center items-center">
+                                {member.attacks[0]
+                                  ? Array.from({
+                                      length: member.attacks[0].stars,
+                                    }).map((_, index) => (
+                                      <FaStar
+                                        key={index}
+                                        size={12}
+                                        className="text-yellow-500"
+                                      />
+                                    ))
+                                  : "N/A"}
+                              </div>
+
+                              <div>
+                                {member.attacks[0]
+                                  ? member.attacks[0].destructionPercentage
+                                  : "N/A"}
+                                %
+                              </div>
+                              {member.attacks[0]
+                                ? `${member.attacks[0].duration} seg.`
+                                : "N/A"}
+                            </div>
+                          </div>
+
+                          {/* Segundo Ataque */}
+                          <div className="flex flex-col justify-center items-end mt-2">
+                            <div className="flex flex-col justify-center items-center">
+                              <strong className="text-blue-400">
+                                2º Ataque
+                              </strong>
+
+                              <div className="flex flex-row justify-center items-center">
+                                {member.attacks[1]
+                                  ? Array.from({
+                                      length: member.attacks[1].stars,
+                                    }).map((_, index) => (
+                                      <FaStar
+                                        key={index}
+                                        size={12}
+                                        className="text-yellow-500"
+                                      />
+                                    ))
+                                  : "N/A"}
+                              </div>
+
+                              <div>
+                                {member.attacks[1]
+                                  ? member.attacks[1].destructionPercentage
+                                  : "N/A"}
+                                %
+                              </div>
+                              {member.attacks[1]
+                                ? `${member.attacks[1].duration} seg.`
+                                : "N/A"}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+              </div>
             )}
 
             {/*=================== separador ===================*/}
             <div className="flex sm:hidden h-[2px] bg-gray-500 w-3/4"></div>
+            
             {/*=================== clã oponente ===================*/}
             <div className="flex  flex-col items-start w-1/2 text-white mx-4">
               <h2 className="text-xl font-bold">Oponente</h2>
-              <p>Nome: {currentWar.opponent.name}</p>
-              <p>Nível: {currentWar.opponent.clanLevel}</p>
-              <p>Ataques: {currentWar.opponent.attacks}</p>
-              <p>Estrelas: {currentWar.opponent.stars}</p>
+              <p>{currentWar.opponent.name}</p>
+              <p>{currentWar.opponent.attacks} - Ataques</p>
+              <div className="flex flex-row justify-center items-center">
+                  {" "}
+                  <p>{currentWar.opponent.stars} </p>
+                  <FaStar size={12} className="text-yellow-500" />
+                </div>
               <p>
                 Destruição:{" "}
                 {currentWar.opponent.destructionPercentage.toFixed(2)}%
@@ -226,23 +231,20 @@ export default function Info() {
               <img
                 src={currentWar.opponent.badgeUrls.medium}
                 alt="Opponent Clan Badge"
+                className="h-24 mt-4"
               />
 
               <h3 className="text-lg font-bold mt-4">Membros</h3>
               {currentWar.opponent.members
                 .sort((a, b) => a.mapPosition - b.mapPosition)
                 .map((member) => (
-                  <div key={member.tag} className="mt-2">
+                  <div key={member.tag} className="flex flex-col items-start mt-2">
                     <div className="flex flex-row">
-                      <p> {member.name}</p>
+                      <p>{member.mapPosition}. {member.name}</p>
                     </div>
                     <div className="flex flex-row">
                       <p>{member.townhallLevel}</p>&nbsp;
                       <p className="text-gray-500">- Centro de Vila</p>
-                    </div>
-                    <div className="flex flex-row">
-                      <p>{member.mapPosition}</p>&nbsp;
-                      <p className="text-gray-500">- Posição no Mapa</p>
                     </div>
                     <div className="flex flex-row">
                       <p>{member.opponentAttacks}</p>&nbsp;
@@ -250,13 +252,11 @@ export default function Info() {
                     </div>
                     {/*============================ Ataques ==================================*/}
                     {member.attacks && (
-                      <div className="text-xs flex flex-col justify-center items-end">
+                      <div className="text-xs flex flex-row justify-center space-x-2 items-center">
                         {/* Primeiro Ataque */}
                         <div className="flex flex-col justify-center items-end mt-2">
                           <div className="flex flex-col justify-center items-center">
-                            <strong className="text-blue-400">
-                              1º Ataque
-                            </strong>
+                            <strong className="text-blue-400">1º Ataque</strong>
 
                             <div className="flex flex-row justify-center items-center">
                               {member.attacks[0]
@@ -287,9 +287,7 @@ export default function Info() {
                         {/* Segundo Ataque */}
                         <div className="flex flex-col justify-center items-end mt-2">
                           <div className="flex flex-col justify-center items-center">
-                            <strong className="text-blue-400">
-                              2º Ataque
-                            </strong>
+                            <strong className="text-blue-400">2º Ataque</strong>
 
                             <div className="flex flex-row justify-center items-center">
                               {member.attacks[1]
@@ -316,13 +314,12 @@ export default function Info() {
                               : "N/A"}
                           </div>
                         </div>
-
                       </div>
                     )}
-
                   </div>
                 ))}
             </div>
+
           </div>
         </div>
       )}
