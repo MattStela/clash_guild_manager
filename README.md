@@ -1,14 +1,14 @@
-# Projeto de Informações da Guilda do Clash of Clans
+# Gerenciador de Guilda do Clash of Clans
 
 ## Descrição
-Este projeto exibe informações sobre a guilda do jogo Clash of Clans para melhore gerenciamento dos líderes, incluindo membros e histórico de guerras. Utiliza a API oficial do Clash of Clans. 
+Este projeto exibe informações sobre a sua ou qualquer guilda do jogo Clash of Clans para melhor gerenciamento dos líderes. A ferramenta inclui informação sobre membros, histórico de guerras e informações sobre players e clãs em geral. Utiliza a API e endpoints oficiais do Clash of Clans (https://developer.clashofclans.com/#/). 
 
 ## Pré-requisitos
-- No jogo, coloque as informações da guilda como públicas.
+- No jogo, coloque as informações da guilda como públicas (caso contrário, não é possível procurar na API e mostrar no site).
 - Crie uma chave em "My Account" em [Clash of Clans Developer Portal](https://developer.clashofclans.com/#/) e relacione ao seu IP público.
 
 ## Configuração
-1. Crie um arquivo de nome literal `.env` na raiz do projeto e adicione a chave configurada com seu IP da seguinte forma:
+1. Crie um arquivo de nome literal `.env` na raiz do projeto e adicione a chave configurada com seu IP da seguinte forma(exemplo):
     ```sh
     CLASH_API_KEY=lakmsndlsa9dasm45kofbjnb723lcx0s9adfsça
     ```
