@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Line } from 'react-chartjs-2';
-import 'chart.js/auto';
+import { Line } from "react-chartjs-2";
+import "chart.js/auto";
 
 export default function History() {
   const [clanTag, setClanTag] = useState("#2J8JP9RJR");
@@ -10,7 +10,9 @@ export default function History() {
 
   const fetchWarLog = async () => {
     const cleanedTag = clanTag.startsWith("#") ? clanTag.slice(1) : clanTag;
-    const url = `http://localhost:4000/clashofclans/${encodeURIComponent(cleanedTag)}/warlog`;
+    const url = `http://localhost:4000/clashofclans/${encodeURIComponent(
+      cleanedTag
+    )}/warlog`;
 
     try {
       const response = await fetch(url);
@@ -26,41 +28,43 @@ export default function History() {
   };
 
   const data = {
-    labels: warLog ? warLog.map(war => formatDate(war.endTime)) : [],
+    labels: warLog ? warLog.map((war) => formatDate(war.endTime)) : [],
     datasets: [
       {
-        label: 'Estrelas do Clã',
-        data: warLog ? warLog.map(war => war.clan.stars) : [],
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        label: "Estrelas do Clã",
+        data: warLog ? warLog.map((war) => war.clan.stars) : [],
+        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
         fill: true,
-        borderWidth: 1
+        borderWidth: 1,
       },
       {
-        label: 'Estrelas do Oponente',
-        data: warLog ? warLog.map(war => war.opponent.stars) : [],
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        label: "Estrelas do Oponente",
+        data: warLog ? warLog.map((war) => war.opponent.stars) : [],
+        borderColor: "rgba(255, 99, 132, 1)",
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
         fill: true,
-        borderWidth: 1
+        borderWidth: 1,
       },
       {
-        label: 'Percentual de Destruição do Clã(%)',
-        data: warLog ? warLog.map(war => war.clan.destructionPercentage) : [],
-        borderColor: 'rgba(54, 162, 235, 1)',
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        label: "Percentual de Destruição do Clã(%)",
+        data: warLog ? warLog.map((war) => war.clan.destructionPercentage) : [],
+        borderColor: "rgba(54, 162, 235, 1)",
+        backgroundColor: "rgba(54, 162, 235, 0.2)",
         fill: true,
-        borderWidth: 1
+        borderWidth: 1,
       },
       {
-        label: 'Percentual de Destruição do Oponente(%)',
-        data: warLog ? warLog.map(war => war.opponent.destructionPercentage) : [],
-        borderColor: 'rgba(255, 206, 86, 1)',
-        backgroundColor: 'rgba(255, 206, 86, 0.2)',
+        label: "Percentual de Destruição do Oponente(%)",
+        data: warLog
+          ? warLog.map((war) => war.opponent.destructionPercentage)
+          : [],
+        borderColor: "rgba(255, 206, 86, 1)",
+        backgroundColor: "rgba(255, 206, 86, 0.2)",
         fill: true,
-        borderWidth: 1
-      }
-    ]
+        borderWidth: 1,
+      },
+    ],
   };
 
   function formatDate(dateString) {
@@ -75,7 +79,9 @@ export default function History() {
     const seconds = dateString.slice(13, 15);
 
     // Criar um objeto Date usando as partes extraídas
-    const date = new Date(`${year}-${month}-${day}T${hour}:${minutes}:${seconds}Z`);
+    const date = new Date(
+      `${year}-${month}-${day}T${hour}:${minutes}:${seconds}Z`
+    );
     if (isNaN(date.getTime())) return "Data inválida";
 
     // Converter a data para o horário de Brasília (UTC-3)
@@ -96,12 +102,12 @@ export default function History() {
     maintainAspectRatio: false,
     scales: {
       x: {
-        reverse: true,  
+        reverse: true,
       },
       y: {
         beginAtZero: true,
       },
-    },  
+    },
   };
 
   return (
@@ -127,44 +133,62 @@ export default function History() {
       {warLog && (
         <div className="w-full flex flex-col justify-center items-center">
           {warLog.map((war, index) => (
-            <div key={index} className="my-4">
-              <h2 className={`text-xl font-bold ${war.result === "win" ? "text-green-500" : "text-red-500"}`}>
-                {war.result === "win" ? "Vitória" : "Derrota"}
+            <div
+              key={index}
+              className="flex flex-col justify-center items-center border rounded-3xl border-gray-500 p-2 my-2"
+            >
+              <div className="text-gray-300">
+                {war.opponent.name} ({war.opponent.tag})
+              </div>
+              <h2
+                className={`text-xl font-bold ${
+                  war.result === "win" ? "text-green-500" : "text-red-500"
+                }`}
+              >
+                {war.result === "win" ? "Vitória" : "Derrota"} -{" "}
+                {formatDate(war.endTime)}
               </h2>
+              
               <p>
-                <span className="text-gray-500">Data de Término:</span> {formatDate(war.endTime)}
+                {war.teamSize}&nbsp;x&nbsp;{war.teamSize}
               </p>
-              <p>
-                <span className="text-gray-500">Tamanho da Equipe:</span> {war.teamSize}
-              </p>
-              <p>
-                <span className="text-gray-500">Ataques por Membro:</span> {war.attacksPerMember}
-              </p>
-              <p>
-                <span className="text-gray-500">Clan:</span> {war.clan.name} ({war.clan.tag})
-              </p>
-              <p>
-                <span className="text-gray-500">Nível do Clan:</span> {war.clan.clanLevel}
-              </p>
-              <p>
-                <span className="text-gray-500">Estrelas:</span> {war.clan.stars}
-              </p>
-              <p>
-                <span className="text-gray-500">Percentual de Destruição:</span> {war.clan.destructionPercentage}%
-              </p>
-              <p>
-                <span className="text-gray-500">Oponente:</span> {war.opponent.name} ({war.opponent.tag})
-              </p>
-              <p>
-                <span className="text-gray-500">Estrelas do Oponente:</span> {war.opponent.stars}
-              </p>
-              <p>
-                <span className="text-gray-500">Percentual de Destruição do Oponente:</span> {war.opponent.destructionPercentage.toFixed(2)}%
-              </p>
+
+
+
+              <div className="flex flex-row justify-center items-center">
+                <div className="text-center flex flex-col justify-center items-center w-[300px]">
+                {war.clan.name}
+                  <p>
+                    <span className="text-gray-500">Estrelas:</span>{" "}
+                    {war.clan.stars}
+                  </p>
+                  <p>
+                    <span className="text-gray-500">Destruição:</span>{" "}
+                    {war.clan.destructionPercentage}%
+                  </p>
+                </div>
+
+                <div className="text-center flex flex-col justify-center items-center w-[300px]">
+                {war.opponent.name}
+                  <p>
+                    <span className="text-gray-500">Estrelas do Oponente:</span>{" "}
+                    {war.opponent.stars}
+                  </p>
+                  <p>
+                    <span className="text-gray-500">
+                      Destruição do Oponente:
+                    </span>{" "}
+                    {war.opponent.destructionPercentage.toFixed(2)}%
+                  </p>
+                </div>
+              </div>
+
+
+
             </div>
           ))}
           <div className="w-full flex justify-center items-center h-[400px]">
-            <Line data={data} options={options}/>
+            <Line data={data} options={options} />
           </div>
         </div>
       )}

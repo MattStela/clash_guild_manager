@@ -64,6 +64,14 @@ app.get('/clashofclans/players/:playerTag', (req, res) => {
   fetchData(url, apiKey, res);
 });
 
+app.get('/clashofclans/:clanTag/capitalraidseasons', (req, res) => {
+  const clanTag = req.params.clanTag;
+  const apiKey = process.env.CLASH_API_KEY;
+  const limit = req.query.limit || 2;
+  const url = `https://api.clashofclans.com/v1/clans/%23${clanTag}/capitalraidseasons?limit=${limit}`;
+  fetchData(url, apiKey, res);
+});
+
 app.listen(port, () => {
   console.log(`Proxy server running at http://localhost:${port}`);
 });

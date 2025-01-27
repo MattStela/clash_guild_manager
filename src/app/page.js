@@ -14,7 +14,13 @@ export default function Home() {
           <strong>Gerenciar Membros:</strong> Acompanhe a atividade, contribuição e evolução de cada membro do clã com facilidade.
         </li>
         <li>
-          <strong>Analisar Desempenho:</strong> Utilize nossas ferramentas de análise para identificar pontos fortes e áreas de melhoria do seu clã.
+          <strong>Histórico de Guerras:</strong> Revise os registros de guerras passadas para analisar estratégias, melhorar táticas e celebrar vitórias.
+        </li>
+        <li>
+          <strong>Informações de Outros Jogadores:</strong> Acesse perfis detalhados de outros jogadores, incluindo suas conquistas, níveis de tropas e desempenho em guerras.
+        </li>
+        <li>
+          <strong>Analisar Desempenho:</strong> Utilize essas ferramentas de análise para identificar os pontos fortes e áreas de melhoria do seu clã.
         </li>
       </ul>
       <p className="text-center">

@@ -4,8 +4,9 @@ import {
   TbLayoutSidebarLeftExpand,
   TbLayoutSidebarRightExpandFilled,
 } from "react-icons/tb";
-import { FaFolderOpen } from "react-icons/fa";
+import { FaFolderOpen, FaHome } from "react-icons/fa";
 import { MdOutlineSubdirectoryArrowRight } from "react-icons/md";
+import Link from "next/link";
 
 export default function LateralMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,15 +22,12 @@ export default function LateralMenu() {
         { name: "Guerra Atual", link: "/war" },
         { name: "Membros", link: "/members" },
         { name: "Histórico de guerras", link: "/history" },
+        { name: "Capital", link: "/capital" },
       ],
-      
     },
     {
       title: "Jogadores",
-      subitems: [
-        { name: "Informações", link: "/info" },
-      ],
-      
+      subitems: [{ name: "Informações", link: "/info" }],
     },
   ];
 
@@ -54,10 +52,17 @@ export default function LateralMenu() {
 
       {/* Menu lateral com animação e fundo borrado transparente */}
       <div
-        className={`fixed top-0 left-0 transform ${
+        className={`border fixed top-0 left-0 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out p-2 flex flex-col justify-start items-start w-[200px] min-h-screen bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg shadow-lg`}
       >
+        <Link
+          className="p-2 flex flex-row space-x-1 justify-center items-center text-white"
+          href="/#"
+        >
+          <FaHome size={20} /><p>Início</p>
+        </Link>
+
         {items.map((item, index) => (
           <div
             key={index}
