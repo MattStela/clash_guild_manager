@@ -22,15 +22,15 @@ export default function LateralMenu() {
         { name: "Membros", link: "/members" },
         { name: "Histórico de guerras", link: "/history" },
       ],
+      
     },
     {
-        title: "Aff",
-        subitems: [
-          { name: "Guerra Atual", link: "/war" },
-          { name: "Membros", link: "/members" },
-          { name: "Histórico de guerras", link: "/history" },
-        ],
-      },
+      title: "Jogadores",
+      subitems: [
+        { name: "Informações", link: "/info" },
+      ],
+      
+    },
   ];
 
   return (
@@ -56,12 +56,12 @@ export default function LateralMenu() {
       <div
         className={`fixed top-0 left-0 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-300 ease-in-out p-2 flex flex-col justify-center items-center w-[200px] min-h-screen bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg shadow-lg`}
+        } transition-transform duration-300 ease-in-out p-2 flex flex-col justify-start items-start w-[200px] min-h-screen bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg shadow-lg`}
       >
         {items.map((item, index) => (
           <div
             key={index}
-            className="space-y-1 flex flex-col justify-center items-start py-2"
+            className="space-y-1 flex flex-col justify-center items-start p-2"
           >
             <div className="flex flex-row space-x-1 justify-center items-center text-white">
               <FaFolderOpen size={20} />
