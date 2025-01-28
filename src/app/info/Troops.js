@@ -145,6 +145,7 @@ export default function Troops({ troops }) {
 
           <div className="bg-white h-[1px] my-4 w-full"></div>
           <h2 className="text-xl font-bold mb-4">Super Tropas</h2>
+
           <div className="grid grid-cols-5 space-x-2">
             {superTroops.map((troop, index) => (
               <div key={index} className="flex space-x-2 justify-between mb-2">
@@ -179,20 +180,35 @@ export default function Troops({ troops }) {
             Tropas de Base do Construtor
           </h2>
 
-          <div className="flex flex-col space-y-2 mt-2">
+          <div className="grid grid-cols-5 space-x-2">
             {builderBaseTroops.map((troop, index) => (
-              <div key={index} className="flex space-x-2 justify-center items-center">
+              <div key={index} className="flex space-x-2 justify-between mb-2">
                 <div className="flex items-center space-x-2">
-                  <div className="font-bold flex flex-row space-x-1 text-[1rem]">
-                    <p className="text-gray-400">{translateTroopName(troop.name)}&nbsp;</p>
-                    <div>{troop.level}</div>
-                    <p>/</p>
-                    <div>{troop.maxLevel}</div>
-                  </div>
+                  {iconUrls[troop.name] ? (
+                    <div className="flex flex-col items-center justify-center">
+                      <Image
+                        src={iconUrls[troop.name]}
+                        alt={translateTroopName(troop.name)}
+                        width={75}
+                        height={75}
+                        title={translateTroopName(troop.name)}
+                      />
+                      <div className="font-bold flex flex-row space-x-1 text-[1rem]">
+                        <div>{troop.level}</div>
+                        <p>/</p>
+                        <div>{troop.maxLevel}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-gray-500">
+                      {translateTroopName(troop.name)}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
           </div>
+
         </div>
       )}
     </div>
