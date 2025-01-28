@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Image from "next/image";
+import { iconUrls } from "./ref";
 
 const translatedNames = {
   "Lightning Spell": "Feitiço de Relâmpago",
@@ -43,17 +45,36 @@ export default function Spells({ spells }) {
       {showSpells && (
         <div className="flex flex-col justify-center items-center w-full">
           <h2 className="text-xl font-bold mb-4">Feitiços</h2>
-          {spells.map((spell, index) => (
-            <div key={index} className="flex space-x-2 justify-between mb-2">
-              <p className="text-gray-500">{translateSpellName(spell.name)}</p>
-              <p>
-                {spell.level}/{spell.maxLevel}
-              </p>
-            </div>
-          ))}
+          <div className="grid grid-cols-5 space-x-2">
+            {spells.map((spell, index) => (
+              <div key={index} className="flex space-x-2 justify-between mb-2">
+                <div className="flex items-center space-x-2">
+                  {iconUrls[spell.name] ? (
+                    <div className="flex flex-col items-center justify-center">
+                      <Image
+                        src={iconUrls[spell.name]}
+                        alt={translateSpellName(spell.name)}
+                        width={75}
+                        height={75}
+                        title={translateSpellName(spell.name)}
+                      />
+                      <div className="font-bold flex flex-row space-x-1 text-[1rem]">
+                        <div>{spell.level}</div>
+                        <p>/</p>
+                        <div>{spell.maxLevel}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-gray-500">
+                     {spell.name}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>
   );
 }
-

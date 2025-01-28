@@ -26,7 +26,7 @@ export default function RootLayout({ children }) {
       >
         <div className="flex flex-row w-full justify-center items-start">
           <LateralMenu />
-          <div className="p-1 w-full">{children}</div>
+          <div className="p-1 w-full min-h-screen">{children}</div>
         </div>
 
         <Footer />

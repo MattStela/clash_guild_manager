@@ -52,7 +52,7 @@ export default function LateralMenu() {
 
       {/* Menu lateral com animação e fundo borrado transparente */}
       <div
-        className={`border fixed top-0 left-0 transform ${
+        className={`fixed top-0 left-0 transform ${
           isOpen ? "translate-x-0" : "-translate-x-full"
         } transition-transform duration-300 ease-in-out p-2 flex flex-col justify-start items-start w-[200px] min-h-screen bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg shadow-lg`}
       >

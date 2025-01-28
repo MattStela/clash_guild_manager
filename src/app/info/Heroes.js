@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { iconUrls } from "./ref";
+import Image from "next/image";
 
 export default function Heroes({ heroes }) {
   const [showHeroes, setShowHeroes] = useState(false);
@@ -62,18 +64,36 @@ export default function Heroes({ heroes }) {
           {showHeroes ? "▲" : "▼"}
         </button>
       </div>
+
       <div className="bg-white h-[1px] my-4 w-3/4"></div>
+
       {showHeroes && (
-        <div className="w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-2 w-full">
           {heroes.map((hero, index) => (
-            <div key={index} className="mb-4 p-4 rounded shadow-lg">
-              <div className="flex justify-center items-center space-x-2">
-                <h2 className="text-xl font-bold text-blue-500">
+            <div key={index} className="border m-2 p-4 rounded shadow-lg">
+
+
+
+              <div className="flex flex-row justify-start items-center space-x-2">
+                {iconUrls[hero.name] && (
+                  <Image
+                    src={iconUrls[hero.name]}
+                    alt={translateHeroName(hero.name)}
+                    width={75}
+                    height={50}
+                    title={translateHeroName(hero.name)}
+                  />
+                )}
+
+                <div className="flex justify-center items-center flex-col flex-grow">
+                <h2 className="text-center text-xl font-bold text-blue-500">
                   {translateHeroName(hero.name)}
                 </h2>
                 <p className="text-white">
                   {hero.level}/{hero.maxLevel}
                 </p>
+                </div>
+
               </div>
 
               {hero.equipment && hero.equipment.length > 0 && (
@@ -81,7 +101,9 @@ export default function Heroes({ heroes }) {
                   <h3 className="text-lg font-bold text-white">Equipamentos</h3>
                   {hero.equipment.map((equipment, eqIndex) => (
                     <div key={eqIndex} className="flex space-x-2 ml-4">
-                      <p className="text-gray-300">{translateEquipmentName(equipment.name)}</p>
+                      <p className="text-gray-300">
+                        {translateEquipmentName(equipment.name)}
+                      </p>
                       <p className="text-gray-300">
                         {equipment.level}/{equipment.maxLevel}
                       </p>
@@ -89,10 +111,14 @@ export default function Heroes({ heroes }) {
                   ))}
                 </div>
               )}
+
+
+
             </div>
           ))}
         </div>
       )}
+
     </div>
   );
 }
