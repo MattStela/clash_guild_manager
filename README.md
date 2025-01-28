@@ -23,7 +23,12 @@ Este projeto exibe informações sobre a sua ou qualquer guilda do jogo Clash of
     npm run dev
     ```
 
-4. Acesse no navegador [localhost](http://localhost:3000/).
+4. Em outro terminal, pra baixar os node_modules:
+    ```sh
+    npm install
+    ```
+
+5. Acesse no navegador [localhost](http://localhost:3000/).
 
 ## Seja feliz
 Com as informações configuradas e o projeto em execução, explore as informações da sua guilda do Clash of Clans.

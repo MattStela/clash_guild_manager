@@ -3,6 +3,7 @@ import AchievementList from "./AchievementList";
 import PlayerInfo from "./PlayerInfo";
 import Troops from "./Troops";
 import Heroes from "./Heroes";
+import Spells from "./Spells";
 
 export default function PlayerAchievements({ playerData }) {
   return (
@@ -10,7 +11,9 @@ export default function PlayerAchievements({ playerData }) {
       <PlayerInfo playerData={playerData} />
       <AchievementList achievements={playerData.achievements} />
       <Troops troops={playerData.troops}/>
+      <Spells spells={playerData.spells}/>
       <Heroes heroes={playerData.heroes}/>
+      
     </div>
   );
 }

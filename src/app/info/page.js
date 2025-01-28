@@ -2,11 +2,15 @@
 import React, { useState } from "react";
 import PlayerAchievements from "./PlayerAchievements";
 
-
 export default function Info() {
   const [playerTag, setPlayerTag] = useState("#YV29LYGJ2");
   const [playerData, setPlayerData] = useState(null);
   const [error, setError] = useState(null);
+  const [isClient, setIsClient] = useState(false);
+
+  React.useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleClick = async () => {
     const cleanedTag = playerTag.startsWith("#") ? playerTag.slice(1) : playerTag;
@@ -26,6 +30,10 @@ export default function Info() {
       setPlayerData(null); // Clear any previous player data
     }
   };
+
+  if (!isClient) {
+    return null; // Evita a renderização no servidor
+  }
 
   return (
     <div className="py-10 min-h-screen flex flex-col justify-center items-center w-full space-y-4">
@@ -48,7 +56,6 @@ export default function Info() {
       {playerData && (
         <>
           <PlayerAchievements playerData={playerData} />
-         
         </>
       )}
     </div>

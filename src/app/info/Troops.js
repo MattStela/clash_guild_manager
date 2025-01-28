@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import Image from "next/image";
+import { iconUrls, translatedNames } from "./ref";
 
 export default function Troops({ troops }) {
   const [showTroops, setShowTroops] = useState(false);
@@ -23,24 +25,24 @@ export default function Troops({ troops }) {
     "Super Valkyrie",
     "Super Witch",
     "Ice Hound",
-    "Super Bowler"
+    "Super Bowler",
   ];
 
   const translatedNames = {
-    "Barbarian": "Bárbaro",
-    "Archer": "Arqueira",
-    "Goblin": "Goblin",
-    "Giant": "Gigante",
+    Barbarian: "Bárbaro",
+    Archer: "Arqueira",
+    Goblin: "Goblin",
+    Giant: "Gigante",
     "Wall Breaker": "Quebra-Muros",
-    "Balloon": "Balão",
-    "Wizard": "Mago",
-    "Healer": "Curadora",
-    "Dragon": "Dragão",
+    Balloon: "Balão",
+    Wizard: "Mago",
+    Healer: "Curadora",
+    Dragon: "Dragão",
     "P.E.K.K.A": "P.E.K.K.A",
-    "Minion": "Serva",
+    Minion: "Serva",
     "Hog Rider": "Corredor",
-    "Valkyrie": "Valquíria",
-    "Golem": "Golem",
+    Valkyrie: "Valquíria",
+    Golem: "Golem",
     "Super Barbarian": "Super Bárbaro",
     "Super Archer": "Super Arqueira",
     "Super Giant": "Super Gigante",
@@ -61,7 +63,7 @@ export default function Troops({ troops }) {
     "Sneaky Archer": "Arqueira Furtiva",
     "Boxer Giant": "Gigante Boxeador",
     "Beta Minion": "Serva Beta",
-    "Bomber": "Bombardeiro",
+    Bomber: "Bombardeiro",
     "Baby Dragon": "Bebê Dragão",
     "Cannon Cart": "Carrinho de Canhão",
     "Night Witch": "Bruxa da Noite",
@@ -69,11 +71,11 @@ export default function Troops({ troops }) {
     "Super P.E.K.K.A": "Super P.E.K.K.A",
     "Hog Glider": "Deslizador de Porco",
     "Electro Dragon": "Dragão Elétrico",
-    "Yeti": "Yeti",
+    Yeti: "Yeti",
     "Dragon Rider": "Dragão Rider",
     "Electro Owl": "Coruja Elétrica",
     "Mighty Yak": "Iaque Poderoso",
-    "Unicorn": "Unicórnio",
+    Unicorn: "Unicórnio",
     "Ice Mage": "Mago de Gelo",
     "Skeleton Giant": "Gigante Esqueleto",
     "Skeleton Barrel": "Barril (Esqueleto)",
@@ -83,7 +85,7 @@ export default function Troops({ troops }) {
     "Fire Mage": "Mago de Fogo",
     "Fire Dragon": "Dragão de Fogo",
     "Water Mage": "Mago de Água",
-    "Water Dragon": "Dragão de Água"
+    "Water Dragon": "Dragão de Água",
   };
 
   const translateTroopName = (name) => translatedNames[name] || name;
@@ -107,44 +109,90 @@ export default function Troops({ troops }) {
         </button>
       </div>
       <div className="bg-white h-[1px] my-4 w-3/4"></div>
+
       {showTroops && (
         <div className="flex flex-col justify-center items-center w-full">
           <h2 className="text-xl font-bold mb-4">Tropas de Base Principal</h2>
-          {/*Centro da Vila =============================================================*/}
-          {homeTroops.map((troop, index) => (
-            <div key={index} className="flex space-x-2 justify-between mb-2">
-              <p className="text-gray-500">{translateTroopName(troop.name)}</p>
-              <p>
-                {troop.level}/
-                {troop.maxLevel}
-              </p>
-            </div>
-          ))}
+
+          <div className="grid grid-cols-5 space-x-2">
+            {homeTroops.map((troop, index) => (
+              <div key={index} className="flex space-x-2 justify-between mb-2">
+                <div className="flex items-center space-x-2">
+                  {iconUrls[troop.name] ? (
+                    <div className="flex flex-col items-center justify-center">
+                      <Image
+                        src={iconUrls[troop.name]}
+                        alt={translateTroopName(troop.name)}
+                        width={75}
+                        height={75}
+                        title={translateTroopName(troop.name)}
+                      />
+                      <div className="font-bold flex flex-row space-x-1 text-[1rem]">
+                        <div>{troop.level}</div>
+                        <p>/</p>
+                        <div>{troop.maxLevel}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-gray-500">
+                      {translateTroopName(troop.name)}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
           <div className="bg-white h-[1px] my-4 w-full"></div>
           <h2 className="text-xl font-bold mb-4">Super Tropas</h2>
-          {/*Super Tropas ===============================================================*/}
-          {superTroops.map((troop, index) => (
-            <div key={index} className="flex space-x-2 justify-between mb-2">
-              <p className="text-gray-500">{translateTroopName(troop.name)}</p>
-              <p>
-                {troop.level}/{troop.maxLevel}
-              </p>
-            </div>
-          ))}
+          <div className="grid grid-cols-5 space-x-2">
+            {superTroops.map((troop, index) => (
+              <div key={index} className="flex space-x-2 justify-between mb-2">
+                <div className="flex items-center space-x-2">
+                  {iconUrls[troop.name] ? (
+                    <div className="flex flex-col items-center justify-center">
+                      <Image
+                        src={iconUrls[troop.name]}
+                        alt={translateTroopName(troop.name)}
+                        width={75}
+                        height={75}
+                        title={translateTroopName(troop.name)}
+                      />
+                      <div className="font-bold flex flex-row space-x-1 text-[1rem]">
+                        <div>{troop.level}</div>
+                        <p>/</p>
+                        <div>{troop.maxLevel}</div>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-gray-500">
+                      {translateTroopName(troop.name)}
+                    </p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+
           <div className="bg-white h-[1px] my-4 w-full"></div>
           <h2 className="text-xl font-bold mb-4 text-center">
             Tropas de Base do Construtor
           </h2>
-          {/*Base do construtor =========================================================*/}
-          {builderBaseTroops.map((troop, index) => (
-            <div key={index} className="flex space-x-2 justify-between mb-2">
-              <p className="text-gray-500">{translateTroopName(troop.name)}</p>
-              <p>
-                {troop.level}/
-                {troop.maxLevel}
-              </p>
-            </div>
-          ))}
+
+          <div className="flex flex-col space-y-2 mt-2">
+            {builderBaseTroops.map((troop, index) => (
+              <div key={index} className="flex space-x-2 justify-center items-center">
+                <div className="flex items-center space-x-2">
+                  <div className="font-bold flex flex-row space-x-1 text-[1rem]">
+                    <p className="text-gray-400">{translateTroopName(troop.name)}&nbsp;</p>
+                    <div>{troop.level}</div>
+                    <p>/</p>
+                    <div>{troop.maxLevel}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

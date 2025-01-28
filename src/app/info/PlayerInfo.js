@@ -5,6 +5,13 @@ export default function PlayerInfo({ playerData }) {
   return (
     <div className="mt-4 border p-4 rounded shadow-lg">
       <div className="mb-4 flex flex-row items-center justify-center space-x-2">
+      <Image
+          src={playerData.clan.badgeUrls.large}
+          width={50}
+          height={50}
+          alt="tag do clã"
+          title={`${playerData.role} do ${playerData.clan.name}`}
+        />
         <div className="flex flex-col justify-center items-center">
           <div className="text-[0.6rem] flex justify-center items-center">
             <p className="">
@@ -17,12 +24,13 @@ export default function PlayerInfo({ playerData }) {
             <p>{playerData.tag}</p>
           </div>
         </div>
+        
         <Image
-          src={playerData.clan.badgeUrls.large}
+          src={playerData.league.iconUrls.medium}
           width={50}
           height={50}
           alt="tag do clã"
-          title={`${playerData.role} do ${playerData.clan.name}`}
+          title={playerData.league.name}
         />
       </div>
 
