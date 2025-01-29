@@ -102,7 +102,6 @@ export default function Timer() {
     return (hours * 3600 + minutes * 60 + seconds) * 1000;
   };
 
-
   const formatTime = (ms) => {
     const totalSeconds = Math.floor(ms / 1000);
     const hours = Math.floor(totalSeconds / 3600);
@@ -138,6 +137,7 @@ export default function Timer() {
         submittedData={submittedData}
         setSubmittedData={setSubmittedData}
         timers={timers}
+        setTimers={setTimers}  // Passando setTimers aqui
         deleteRecord={deleteRecord}
         formatTime={formatTime}
         calculatePercentage={calculatePercentage}

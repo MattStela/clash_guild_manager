@@ -6,21 +6,22 @@ const UpgradeList = ({
   submittedData,
   setSubmittedData,
   timers,
+  setTimers,
   deleteRecord,
   formatTime,
   calculatePercentage,
 }) => {
   const [editIndex, setEditIndex] = useState(null);
   const [editUpgradeIndex, setEditUpgradeIndex] = useState(null);
-  const [editData, setEditData] = useState({});
+  const [editData, setEditData] = useState({ upgrade: "", time: "00:00:00" });
 
   const handleEdit = (index, upgradeIndex, upgrade) => {
     setEditIndex(index);
     setEditUpgradeIndex(upgradeIndex);
     setEditData({
       ...upgrade,
-      time: upgrade.time,
-      upgrade: upgrade.upgrade
+      time: upgrade.time || "00:00:00",
+      upgrade: upgrade.upgrade,
     });
   };
 
@@ -31,34 +32,42 @@ const UpgradeList = ({
 
     if (!isNaN(timeInMilliseconds)) {
       newSubmittedData[index].upgrades[upgradeIndex].time = editData.time;
-      newSubmittedData[index].upgrades[upgradeIndex].finalTime = new Date(now.getTime() + timeInMilliseconds).toISOString();
+      newSubmittedData[index].upgrades[upgradeIndex].upgrade = editData.upgrade;
+      newSubmittedData[index].upgrades[upgradeIndex].finalTime = new Date(
+        now.getTime() + timeInMilliseconds
+      ).toISOString();
+
+      // Atualizar o temporizador
+      const timerId = `${newSubmittedData[index].upgrades[upgradeIndex].id}-${newSubmittedData[index].upgrades[upgradeIndex].finalTime}`;
+      timers[timerId] = timeInMilliseconds;
+      setTimers({ ...timers });
     }
 
     setSubmittedData(newSubmittedData);
     localStorage.setItem("submittedData", JSON.stringify(newSubmittedData));
     setEditIndex(null);
     setEditUpgradeIndex(null);
-    setEditData({});
+    setEditData({ upgrade: "", time: "00:00:00" });
   };
 
   const handleChange = (e, field) => {
     setEditData({
       ...editData,
-      [field]: e.target.value
+      [field]: e.target.value,
     });
   };
 
   const timeToMilliseconds = (time) => {
     const parts = time.split(":");
     if (parts.length !== 3) {
-      return NaN;  // Formato de tempo inválido
+      return NaN; // Formato de tempo inválido
     }
     const [hours, minutes, seconds] = parts.map((part) => {
       const number = Number(part);
       return isNaN(number) ? NaN : number;
     });
-    if (hours < 0 || minutes < 0 || seconds < 0) {
-      return NaN; // Valores negativos inválidos
+    if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) {
+      return NaN; // Valores inválidos
     }
     return (hours * 3600 + minutes * 60 + seconds) * 1000;
   };
@@ -131,7 +140,10 @@ const UpgradeList = ({
           <h3 className="text-xl mt-4">Melhorias em Andamento:</h3>
 
           {data.upgrades.map((upgrade, upgradeIndex) => (
-            <div className="w-full justify-center flex flex-row" key={`${upgrade.id}-${upgrade.finalTime}`}>
+            <div
+              className="w-full justify-center flex flex-row"
+              key={`${upgrade.id}-${upgrade.finalTime}`}
+            >
               <div className="flex flex-row flex-grow justify-between space-x-2">
                 {editIndex === index && editUpgradeIndex === upgradeIndex ? (
                   <>
