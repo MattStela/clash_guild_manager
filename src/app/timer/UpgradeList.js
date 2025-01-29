@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { MdEdit } from "react-icons/md";
+import { BsEraserFill } from "react-icons/bs";
+import { MdOutlinePlaylistAdd } from "react-icons/md";
 
 const UpgradeList = ({
   submittedData,
@@ -57,6 +59,21 @@ const UpgradeList = ({
     });
   };
 
+  const handleDeleteUpgrade = (index, upgradeIndex) => {
+    const newSubmittedData = [...submittedData];
+    newSubmittedData[index].upgrades.splice(upgradeIndex, 1);
+    setSubmittedData(newSubmittedData);
+    localStorage.setItem("submittedData", JSON.stringify(newSubmittedData));
+  };
+
+  const handleAddUpgrade = (index) => {
+    const newSubmittedData = [...submittedData];
+    const newUpgrade = { id: new Date().getTime(), upgrade: "", time: "00:00:00", finalTime: null };
+    newSubmittedData[index].upgrades.push(newUpgrade);
+    setSubmittedData(newSubmittedData);
+    localStorage.setItem("submittedData", JSON.stringify(newSubmittedData));
+  };
+
   const timeToMilliseconds = (time) => {
     const parts = time.split(":");
     if (parts.length !== 3) {
@@ -77,7 +94,7 @@ const UpgradeList = ({
       {submittedData.map((data, index) => (
         <div
           key={index}
-          className="border border-4 border-gray-700 p-4 rounded-3xl relative m-4"
+          className="flex flex-col border border-4 border-gray-700 p-4 rounded-3xl relative m-4"
         >
           <button
             className="absolute top-0 right-0 bg-red-500 text-white rounded-full m-3 px-3 py-1"
@@ -165,7 +182,9 @@ const UpgradeList = ({
                     <p>{upgrade.upgrade}</p>
                     <p>
                       {upgrade.finalTime
-                        ? formatTime(timers[`${upgrade.id}-${upgrade.finalTime}`])
+                        ? formatTime(
+                            timers[`${upgrade.id}-${upgrade.finalTime}`]
+                          )
                         : "Valor de tempo inválido"}
                     </p>
                   </>
@@ -179,13 +198,25 @@ const UpgradeList = ({
                   Salvar
                 </button>
               ) : (
-                <MdEdit
-                  className="ml-2 hover:cursor-pointer text-green-600"
-                  onClick={() => handleEdit(index, upgradeIndex, upgrade)}
-                />
+                <div className="flex flex-row">
+                  <MdEdit
+                    className="ml-2 hover:cursor-pointer text-green-600"
+                    onClick={() => handleEdit(index, upgradeIndex, upgrade)}
+                  />
+                  <BsEraserFill
+                    className="ml-2 hover:cursor-pointer text-red-600"
+                    onClick={() => handleDeleteUpgrade(index, upgradeIndex)}
+                  />
+                </div>
               )}
             </div>
           ))}
+          <div className="w-full flex justify-center items-center">
+            <MdOutlinePlaylistAdd
+              className="hover:cursor-pointer my-4 w-8 h-8"
+              onClick={() => handleAddUpgrade(index)}
+            />
+          </div>
         </div>
       ))}
     </div>
