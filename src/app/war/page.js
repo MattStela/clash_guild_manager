@@ -33,6 +33,8 @@ function formatDate(dateString) {
   return `${formattedDay}/${formattedMonth}/${formattedYear} - ${formattedHours}:${formattedMinutes}`;
 }
 
+
+
 export default function War() {
   const [clanTag, setClanTag] = useState("#2J8JP9RJR");
   const [clanName, setClanName] = useState("");
@@ -49,10 +51,10 @@ export default function War() {
     const members = currentWar?.clan?.members?.filter(filterCondition) || [];
     return (
       <div className="flex text-center justify-center items-center flex-col items-start w-[300px] text-white mx-4 mt-4">
-        <h3 className="text-lg font-bold mt-4">
-          {title} ({members.length})
-        </h3>
-        <p>{members.map((member) => member.name).join(", ")}</p>
+        <h3 className="text-lg font-bold mt-4">{title} ({members.length})</h3>
+        <p>
+          {members.map((member) => member.name).join(", ")}
+        </p>
       </div>
     );
   };
@@ -103,273 +105,85 @@ export default function War() {
 
       {currentWar && (
         <div className="flex flex-col justify-center items-center">
-          {currentWar.state === "notInWar" ? (
-            <p>não está em guerra</p>
-          ) : currentWar.state === "warEnded" ? (
-            <p>A guerra acabou</p>
-          ) : currentWar.state === "preparation" ? (
-            <div className="w-[400px] flex flex-col justify-center items-center">
-              <p className="text-orange-500">Dia de preparação</p>
-              <div className="flex flex-row">
-                <p>Início da preparação -&nbsp;</p>{" "}
-                {formatDate(currentWar.preparationStartTime)}
-              </div>
-              <div className="flex flex-row">
-                <p>Início da guerra -&nbsp;</p>{" "}
-                {formatDate(currentWar.startTime)}
-              </div>
-              <div className="flex flex-row">
-                <p>Fim da guerra -&nbsp;</p> {formatDate(currentWar.endTime)}
-              </div>
-              <div className="flex flex-row justify-center items-center">
-                <p>tamanho da guerra:</p>&nbsp;
-                {currentWar.teamSize}x{currentWar.teamSize}
-              </div>
-              <div className="my-4 flex flex-row space-x-2 justify-center items-center">
-                <div className="flex flex-col justify-center items-center">
-                  <img src={currentWar.clan.badgeUrls.medium}></img>
-                  <div>{currentWar.clan.name}</div>
-                  <div className="text-xs text-gray-500">
-                    {currentWar.clan.tag}
-                  </div>
-                </div>{" "}
-                <p>X</p>{" "}
-                <div className="flex flex-col justify-center items-center">
-                  <img src={currentWar.opponent.badgeUrls.medium}></img>
-                  <div>{currentWar.opponent.name}</div>
-                  <div className="text-xs text-gray-500">
-                    {currentWar.opponent.tag}
-                  </div>
-                </div>{" "}
-              </div>
-            </div>
-          ) : currentWar.state === "inWar" ? (
-            <div className="flex flex-col justify-center items-center">
-              {/*currentWar.state === "inWar"*/}
-              {/*=================== Cabeçalho ===================*/}
+          {/*=================== Cabeçalho ===================*/}
+          <div className="flex flex-col items-center justify-center text-white">
+            <p>
+              <strong className="text-gray-500">Início da Preparação:</strong>{" "}
+              {formatDate(currentWar.preparationStartTime)}
+            </p>
+            <p>
+              <strong className="text-gray-500">Início da Guerra:</strong>{" "}
+              {formatDate(currentWar.startTime)}
+            </p>
+            <p>
+              <strong className="text-gray-500">Término da Guerra:</strong>{" "}
+              {formatDate(currentWar.endTime)}
+            </p>
+          </div>
 
-              <div className="flex flex-col items-center justify-center text-white">
+          <div className="flex flex-col mt-4 w-full sm:flex-row justify-center items-start">
+            {/*=================== clã pesquisado ===================*/}
+            {currentWar && currentWar.clan && currentWar.clan.members && (
+              <div className="flex flex-col items-start sm:items-end w-1/2 text-white mx-4">
+                <h2 className="text-xl font-bold">Clã</h2>
+                <p>{currentWar.clan.name}</p>
+                <p>Ataques - {currentWar.clan.attacks}</p>
+
+                <div className="flex flex-row justify-center items-center">
+                  {" "}
+                  <p>{currentWar.clan.stars} </p>
+                  <FaStar size={12} className="text-yellow-500" />
+                </div>
+
                 <p>
-                  <strong className="text-gray-500">
-                    Início da Preparação:
-                  </strong>{" "}
-                  {formatDate(currentWar.preparationStartTime)}
+                  Destruição: {currentWar.clan.destructionPercentage.toFixed(2)}
+                  %
                 </p>
-                <p>
-                  <strong className="text-gray-500">Início da Guerra:</strong>{" "}
-                  {formatDate(currentWar.startTime)}
-                </p>
-                <p>
-                  <strong className="text-gray-500">Término da Guerra:</strong>{" "}
-                  {formatDate(currentWar.endTime)}
-                </p>
-              </div>
-
-              <div className="flex flex-col mt-4 w-full sm:flex-row justify-center items-start">
-                {/*=================== clã pesquisado ===================*/}
-                {currentWar && currentWar.clan && currentWar.clan.members && (
-                  <div className="flex flex-col items-start sm:items-end w-1/2 text-white mx-4">
-                    <h2 className="text-xl font-bold">Clã</h2>
-                    <div className="flex flex-row">
-                    <p>{currentWar.clan.tag}</p>
-                    <p>&nbsp;-</p>&nbsp;<p>{currentWar.clan.name}</p>
-                  </div>
-                    <p>Ataques - {currentWar.clan.attacks}</p>
-
-                    <div className="flex flex-row justify-center items-center">
-                      {" "}
-                      <p>{currentWar.clan.stars} </p>
-                      <FaStar size={12} className="text-yellow-500" />
-                    </div>
-
-                    <p>
-                      Destruição:{" "}
-                      {currentWar.clan.destructionPercentage.toFixed(2)}%
-                    </p>
-                    <img
-                      className="h-24 mt-4"
-                      src={currentWar.clan.badgeUrls.medium}
-                      alt="Clan Badge"
-                    />
-                    <div className="flex justify-center items-center flex-col">
-                      <div className="flex flex-row justify-center space-x-2 items-center">
-                        <h3 className="text-lg font-bold">Membros</h3>
-                        <MdOutlineExpandMore
-                          onClick={toggleShow}
-                          className="hover:cursor-pointer h-10 w-6"
-                        />
-                      </div>
-
-                      {show && (
-                        <div>
-                          {currentWar.clan.members
-                            .sort((a, b) => a.mapPosition - b.mapPosition)
-                            .map((member) => (
-                              <div
-                                key={member.tag}
-                                className="flex flex-col items-start sm:items-end mt-2"
-                              >
-                                <p>
-                                  {member.mapPosition}. {member.name}
-                                </p>
-                                <div className="flex flex-row">
-                                  <p className="text-gray-500">
-                                    Centro de Vila -
-                                  </p>
-                                  &nbsp;
-                                  <p>{member.townhallLevel}</p>
-                                </div>
-                                <div className="flex flex-row">
-                                  <p className="text-gray-500">
-                                    Ataques sofridos -
-                                  </p>
-                                  &nbsp;
-                                  <p>{member.opponentAttacks}</p>
-                                </div>
-
-                                {/*============================ Ataques ==================================*/}
-
-                                {member.attacks && (
-                                  <div className="text-xs flex flex-row justify-center space-x-2 items-center">
-                                    {/* Primeiro Ataque */}
-                                    <div className="flex flex-col justify-center items-end">
-                                      <div className="flex flex-col justify-center items-center">
-                                        <strong className="text-blue-400">
-                                          1º Ataque
-                                        </strong>
-
-                                        <div className="flex flex-row justify-center items-center">
-                                          {member.attacks[0]
-                                            ? Array.from({
-                                                length: member.attacks[0].stars,
-                                              }).map((_, index) => (
-                                                <FaStar
-                                                  key={index}
-                                                  size={12}
-                                                  className="text-yellow-500"
-                                                />
-                                              ))
-                                            : "N/A"}
-                                        </div>
-
-                                        <div>
-                                          {member.attacks[0]
-                                            ? member.attacks[0]
-                                                .destructionPercentage
-                                            : "N/A"}
-                                          %
-                                        </div>
-                                        {member.attacks[0]
-                                          ? `${member.attacks[0].duration} seg.`
-                                          : "N/A"}
-                                      </div>
-                                    </div>
-
-                                    {/* Segundo Ataque */}
-                                    <div className="flex flex-col justify-center items-end mt-2">
-                                      <div className="flex flex-col justify-center items-center">
-                                        <strong className="text-blue-400">
-                                          2º Ataque
-                                        </strong>
-
-                                        <div className="flex flex-row justify-center items-center">
-                                          {member.attacks[1]
-                                            ? Array.from({
-                                                length: member.attacks[1].stars,
-                                              }).map((_, index) => (
-                                                <FaStar
-                                                  key={index}
-                                                  size={12}
-                                                  className="text-yellow-500"
-                                                />
-                                              ))
-                                            : "N/A"}
-                                        </div>
-
-                                        <div>
-                                          {member.attacks[1]
-                                            ? member.attacks[1]
-                                                .destructionPercentage
-                                            : "N/A"}
-                                          %
-                                        </div>
-                                        {member.attacks[1]
-                                          ? `${member.attacks[1].duration} seg.`
-                                          : "N/A"}
-                                      </div>
-                                    </div>
-                                  </div>
-                                )}
-                              </div>
-                            ))}
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-
-                {/*=================== separador ===================*/}
-                <div className="flex sm:hidden h-[2px] bg-gray-500 w-3/4"></div>
-
-                {/*=================== clã oponente ===================*/}
-                <div className="flex  flex-col items-start w-1/2 text-white mx-4">
-                  <h2 className="text-xl font-bold">Oponente</h2>
-                  <div className="flex flex-row">
-                    <p>{currentWar.opponent.name}</p>
-                    <p>&nbsp;-</p>&nbsp;<p>{currentWar.opponent.tag}</p>
-                  </div>
-                  <p>{currentWar.opponent.attacks} - Ataques</p>
-                  <div className="flex flex-row justify-center items-center">
-                    {" "}
-                    <p>{currentWar.opponent.stars} </p>
-                    <FaStar size={12} className="text-yellow-500" />
-                  </div>
-                  <p>
-                    Destruição:{" "}
-                    {currentWar.opponent.destructionPercentage.toFixed(2)}%
-                  </p>
-                  <img
-                    src={currentWar.opponent.badgeUrls.medium}
-                    alt="Opponent Clan Badge"
-                    className="h-24 mt-4"
-                  />
-
+                <img
+                  className="h-24 mt-4"
+                  src={currentWar.clan.badgeUrls.medium}
+                  alt="Clan Badge"
+                />
+                <div className="flex justify-center items-center flex-col">
                   <div className="flex flex-row justify-center space-x-2 items-center">
                     <h3 className="text-lg font-bold">Membros</h3>
                     <MdOutlineExpandMore
-                      onClick={toggleShowOpponent}
+                      onClick={toggleShow}
                       className="hover:cursor-pointer h-10 w-6"
                     />
                   </div>
-                  {showOpponent && (
+
+                  {show && (
                     <div>
-                      {currentWar.opponent.members
+                      {currentWar.clan.members
                         .sort((a, b) => a.mapPosition - b.mapPosition)
                         .map((member) => (
                           <div
                             key={member.tag}
-                            className="flex flex-col items-start mt-2"
+                            className="flex flex-col items-start sm:items-end mt-2"
                           >
+                            <p>
+                              {member.mapPosition}. {member.name}
+                            </p>
                             <div className="flex flex-row">
-                              <p>
-                                {member.mapPosition}. {member.name}
-                              </p>
+                              <p className="text-gray-500">Centro de Vila -</p>
+                              &nbsp;
+                              <p>{member.townhallLevel}</p>
                             </div>
                             <div className="flex flex-row">
-                              <p>{member.townhallLevel}</p>&nbsp;
-                              <p className="text-gray-500">- Centro de Vila</p>
-                            </div>
-                            <div className="flex flex-row">
-                              <p>{member.opponentAttacks}</p>&nbsp;
                               <p className="text-gray-500">
-                                - Ataques Sofridos
+                                Ataques sofridos -
                               </p>
+                              &nbsp;
+                              <p>{member.opponentAttacks}</p>
                             </div>
+
                             {/*============================ Ataques ==================================*/}
+
                             {member.attacks && (
                               <div className="text-xs flex flex-row justify-center space-x-2 items-center">
                                 {/* Primeiro Ataque */}
-                                <div className="flex flex-col justify-center items-end mt-2">
+                                <div className="flex flex-col justify-center items-end">
                                   <div className="flex flex-col justify-center items-center">
                                     <strong className="text-blue-400">
                                       1º Ataque
@@ -443,35 +257,160 @@ export default function War() {
                   )}
                 </div>
               </div>
-              {currentWar?.clan && (
-                <>
-                  {renderMembersSection(
-                    currentWar,
-                    "Não atacaram",
-                    (member) => !member.attacks || member.attacks.length === 0
-                  )}
-                  {renderMembersSection(
-                    currentWar,
-                    "Atacaram uma vez",
-                    (member) => member.attacks && member.attacks.length === 1
-                  )}
-                  {renderMembersSection(
-                    currentWar,
-                    "Atacaram duas vezes",
-                    (member) => member.attacks && member.attacks.length === 2
-                  )}
-                </>
+            )}
+
+            {/*=================== separador ===================*/}
+            <div className="flex sm:hidden h-[2px] bg-gray-500 w-3/4"></div>
+
+            {/*=================== clã oponente ===================*/}
+            <div className="flex  flex-col items-start w-1/2 text-white mx-4">
+              <h2 className="text-xl font-bold">Oponente</h2>
+              <p>{currentWar.opponent.name}</p>
+              <p>{currentWar.opponent.attacks} - Ataques</p>
+              <div className="flex flex-row justify-center items-center">
+                {" "}
+                <p>{currentWar.opponent.stars} </p>
+                <FaStar size={12} className="text-yellow-500" />
+              </div>
+              <p>
+                Destruição:{" "}
+                {currentWar.opponent.destructionPercentage.toFixed(2)}%
+              </p>
+              <img
+                src={currentWar.opponent.badgeUrls.medium}
+                alt="Opponent Clan Badge"
+                className="h-24 mt-4"
+              />
+
+              <div className="flex flex-row justify-center space-x-2 items-center">
+                <h3 className="text-lg font-bold">Membros</h3>
+                <MdOutlineExpandMore
+                  onClick={toggleShowOpponent}
+                  className="hover:cursor-pointer h-10 w-6"
+                />
+              </div>
+              {showOpponent && ( 
+              <div>
+                {currentWar.opponent.members
+                  .sort((a, b) => a.mapPosition - b.mapPosition)
+                  .map((member) => (
+                    <div
+                      key={member.tag}
+                      className="flex flex-col items-start mt-2"
+                    >
+                      <div className="flex flex-row">
+                        <p>
+                          {member.mapPosition}. {member.name}
+                        </p>
+                      </div>
+                      <div className="flex flex-row">
+                        <p>{member.townhallLevel}</p>&nbsp;
+                        <p className="text-gray-500">- Centro de Vila</p>
+                      </div>
+                      <div className="flex flex-row">
+                        <p>{member.opponentAttacks}</p>&nbsp;
+                        <p className="text-gray-500">- Ataques Sofridos</p>
+                      </div>
+                      {/*============================ Ataques ==================================*/}
+                      {member.attacks && (
+                        <div className="text-xs flex flex-row justify-center space-x-2 items-center">
+                          {/* Primeiro Ataque */}
+                          <div className="flex flex-col justify-center items-end mt-2">
+                            <div className="flex flex-col justify-center items-center">
+                              <strong className="text-blue-400">
+                                1º Ataque
+                              </strong>
+
+                              <div className="flex flex-row justify-center items-center">
+                                {member.attacks[0]
+                                  ? Array.from({
+                                      length: member.attacks[0].stars,
+                                    }).map((_, index) => (
+                                      <FaStar
+                                        key={index}
+                                        size={12}
+                                        className="text-yellow-500"
+                                      />
+                                    ))
+                                  : "N/A"}
+                              </div>
+
+                              <div>
+                                {member.attacks[0]
+                                  ? member.attacks[0].destructionPercentage
+                                  : "N/A"}
+                                %
+                              </div>
+                              {member.attacks[0]
+                                ? `${member.attacks[0].duration} seg.`
+                                : "N/A"}
+                            </div>
+                          </div>
+
+                          {/* Segundo Ataque */}
+                          <div className="flex flex-col justify-center items-end mt-2">
+                            <div className="flex flex-col justify-center items-center">
+                              <strong className="text-blue-400">
+                                2º Ataque
+                              </strong>
+
+                              <div className="flex flex-row justify-center items-center">
+                                {member.attacks[1]
+                                  ? Array.from({
+                                      length: member.attacks[1].stars,
+                                    }).map((_, index) => (
+                                      <FaStar
+                                        key={index}
+                                        size={12}
+                                        className="text-yellow-500"
+                                      />
+                                    ))
+                                  : "N/A"}
+                              </div>
+
+                              <div>
+                                {member.attacks[1]
+                                  ? member.attacks[1].destructionPercentage
+                                  : "N/A"}
+                                %
+                              </div>
+                              {member.attacks[1]
+                                ? `${member.attacks[1].duration} seg.`
+                                : "N/A"}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+              </div>
               )}
+
             </div>
-          ) : currentWar.state === "matchmakng" ? (
-            <div>Procurando guerra...</div>
-          ) : (
-            <div>{currentWar.state}</div>
-          )}
+          </div>
         </div>
       )}
-
       {error && <div className="text-red-500 mt-4">Erro: {error}</div>}
+
+      {currentWar?.clan && (
+        <>
+          {renderMembersSection(
+            currentWar,
+            "Não atacaram",
+            (member) => !member.attacks || member.attacks.length === 0
+          )}
+          {renderMembersSection(
+            currentWar,
+            "Atacaram uma vez",
+            (member) => member.attacks && member.attacks.length === 1
+          )}
+          {renderMembersSection(
+            currentWar,
+            "Atacaram duas vezes",
+            (member) => member.attacks && member.attacks.length === 2
+          )}
+        </>
+      )}
     </div>
   );
 }

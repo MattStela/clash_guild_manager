@@ -3,6 +3,7 @@ import Image from "next/image";
 import { MdEdit } from "react-icons/md";
 import { BsEraserFill } from "react-icons/bs";
 import { MdOutlinePlaylistAdd } from "react-icons/md";
+import { RiCloseCircleFill } from "react-icons/ri";
 
 const UpgradeList = ({
   submittedData,
@@ -16,6 +17,8 @@ const UpgradeList = ({
   const [editIndex, setEditIndex] = useState(null);
   const [editUpgradeIndex, setEditUpgradeIndex] = useState(null);
   const [editData, setEditData] = useState({ upgrade: "", time: "00:00:00" });
+  const [editGold, setEditGold] = useState(null);
+  const [editElixir, setEditElixir] = useState(null);
 
   const handleEdit = (index, upgradeIndex, upgrade) => {
     setEditIndex(index);
@@ -68,10 +71,39 @@ const UpgradeList = ({
 
   const handleAddUpgrade = (index) => {
     const newSubmittedData = [...submittedData];
-    const newUpgrade = { id: new Date().getTime(), upgrade: "", time: "00:00:00", finalTime: null };
+    const newUpgrade = {
+      id: new Date().getTime(),
+      upgrade: "",
+      time: "00:00:00",
+      finalTime: null,
+    };
     newSubmittedData[index].upgrades.push(newUpgrade);
     setSubmittedData(newSubmittedData);
     localStorage.setItem("submittedData", JSON.stringify(newSubmittedData));
+  };
+
+  const handleEditGold = (index) => {
+    setEditGold({ index, value: submittedData[index].goldQuantity });
+  };
+
+  const handleSaveGold = (index) => {
+    const newSubmittedData = [...submittedData];
+    newSubmittedData[index].goldQuantity = editGold.value;
+    setSubmittedData(newSubmittedData);
+    localStorage.setItem("submittedData", JSON.stringify(newSubmittedData));
+    setEditGold(null);
+  };
+
+  const handleEditElixir = (index) => {
+    setEditElixir({ index, value: submittedData[index].elixirQuantity });
+  };
+
+  const handleSaveElixir = (index) => {
+    const newSubmittedData = [...submittedData];
+    newSubmittedData[index].elixirQuantity = editElixir.value;
+    setSubmittedData(newSubmittedData);
+    localStorage.setItem("submittedData", JSON.stringify(newSubmittedData));
+    setEditElixir(null);
   };
 
   const timeToMilliseconds = (time) => {
@@ -97,68 +129,133 @@ const UpgradeList = ({
           className="flex flex-col border border-4 border-gray-700 p-4 rounded-3xl relative m-4"
         >
           <button
-            className="absolute top-0 right-0 bg-red-500 text-white rounded-full m-3 px-3 py-1"
+            className="absolute top-0 right-0 text-white rounded-full mt-4 mr-4 py-1"
             onClick={() => deleteRecord(index)}
           >
-            x
+            <RiCloseCircleFill className="text-red-500 w-6 h-6" />
           </button>
           <h2 className="text-2xl">{data.villageName}</h2>
 
-          <div className=" mt-4">
-            <div className="w-full rounded-full h-7">
-              <div
-                className="flex justify-center items-start bg-[#DFC147] h-6 rounded-full"
-                style={{
-                  width: `${calculatePercentage(
-                    data.goldQuantity,
-                    data.goldTotal
-                  )}%`,
-                }}
-              >
-                <div className="mx-2 mt-1 rounded-full bg-[#F1DE80] h-[0.4rem] flex-grow bg-[#DFC147]"></div>
-                <div className="h-full mr-4 flex justify-center items-center">
-                  <Image
-                    src="/gold_icon.webp"
-                    width={35}
-                    height={25}
-                    alt="gold icon"
+          {/* RECURSOS */}
+          <div className="text-xs">
+            {/* BARRINHA DE OURO */}
+            <div className="">
+              <p className="ml-2">
+                {editGold?.index === index ? (
+                  <input
+                    type="number"
+                    value={editGold.value}
+                    onChange={(e) =>
+                      setEditGold({ index, value: e.target.value })
+                    }
+                    className="rounded-3xl text-black px-2"
                   />
+                ) : (
+                  Number(data.goldQuantity).toLocaleString("pt-BR")
+                )}
+              </p>
+              <div className="flex flex-row justify-center items-center">
+                <div className="w-full rounded-full h-7">
+                  <div
+                    className="border border-3 border-black flex justify-center items-start bg-[#DFC147] h-6 rounded-full"
+                    style={{
+                      width: `${calculatePercentage(
+                        data.goldQuantity,
+                        data.goldTotal
+                      )}%`,
+                    }}
+                  >
+                    <div className="mx-2 mt-1 rounded-full bg-[#F1DE80] h-[0.4rem] flex-grow bg-[#DFC147]"></div>
+                    <div className="h-full mr-4 flex justify-center items-center">
+                      <Image
+                        src="/gold_icon.webp"
+                        width={35}
+                        height={25}
+                        alt="gold icon"
+                      />
+                    </div>
+                  </div>
                 </div>
+                {editGold?.index === index ? (
+                  <button
+                    className="ml-2 hover:cursor-pointer text-green-600"
+                    onClick={() => handleSaveGold(index)}
+                  >
+                    Salvar
+                  </button>
+                ) : (
+                  <MdEdit
+                    className="mx-2 hover:cursor-pointer text-green-600"
+                    onClick={() => handleEditGold(index)}
+                  />
+                )}
               </div>
             </div>
-            <p>{Number(data.goldQuantity).toLocaleString("pt-BR")}</p>
-          </div>
 
-          <div className="mt-4">
-            <div className="w-full rounded-full h-7">
-              <div
-                className="flex justify-center items-start bg-[#AF37BB] h-6 rounded-full"
-                style={{
-                  width: `${calculatePercentage(
-                    data.elixirQuantity,
-                    data.elixirTotal
-                  )}%`,
-                }}
-              >
-                <div className="mx-2 mt-1 rounded-full bg-[#D592DD] h-[0.4rem] flex-grow bg-[#AF37BB]"></div>
-                <div className="h-full mr-4 flex justify-center items-center">
-                  <Image
-                    src="/elixir_icon.webp"
-                    width={35}
-                    height={25}
-                    alt="elixir icon"
-                  />
+            {/* BARRINHA DE ELIXIR */}
+            <div className="">
+              <div className="flex flex-row justify-center items-center">
+                <div className="w-full rounded-full h-7">
+                  <div
+                    className="border border-3 border-black flex justify-center items-start bg-[#AF37BB] h-6 rounded-full"
+                    style={{
+                      width: `${calculatePercentage(
+                        data.elixirQuantity,
+                        data.elixirTotal
+                      )}%`,
+                    }}
+                  >
+                    <div className="mx-2 mt-1 rounded-full h-[0.4rem] flex-grow bg-[#D592DD]"></div>
+                    <div className="h-full mr-4 flex justify-center items-center">
+                      <Image
+                        src="/elixir_icon.webp"
+                        width={35}
+                        height={25}
+                        alt="elixir icon"
+                      />
+                    </div>
+                  </div>
                 </div>
+                {editElixir?.index === index ? (
+                  <button
+                    className="ml-2 hover:cursor-pointer text-green-600"
+                    onClick={() => handleSaveElixir(index)}
+                  >
+                    Salvar
+                  </button>
+                ) : (
+                  <MdEdit
+                    className="mx-2 hover:cursor-pointer text-green-600"
+                    onClick={() => handleEditElixir(index)}
+                  />
+                )}
               </div>
+              <p className="ml-2">
+                {editElixir?.index === index ? (
+                  <input
+                    type="number"
+                    value={editElixir.value}
+                    onChange={(e) =>
+                      setEditElixir({ index, value: e.target.value })
+                    }
+                    className="rounded-3xl text-black px-2"
+                  />
+                ) : (
+                  Number(data.elixirQuantity).toLocaleString("pt-BR")
+                )}
+              </p>
             </div>
-            <p>{Number(data.elixirQuantity).toLocaleString("pt-BR")}</p>
           </div>
 
           <h3 className="text-xl mt-4">Melhorias em Andamento:</h3>
 
           {data.upgrades.map((upgrade, upgradeIndex) => (
             <div
-              className="w-full justify-center flex flex-row"
+              className={`text-sm w-full justify-center flex flex-row ${
+                timers[`${upgrade.id}-${upgrade.finalTime}`] === 0
+                  ? "text-green-600"
+                  : ""
+              }`}
               key={`${upgrade.id}-${upgrade.finalTime}`}
             >
               <div className="flex flex-row flex-grow justify-between space-x-2">
@@ -168,13 +265,13 @@ const UpgradeList = ({
                       type="text"
                       value={editData.upgrade}
                       onChange={(e) => handleChange(e, "upgrade")}
-                      className="rounded-3xl text-black w-[150px] px-4 "
+                      className="rounded-3xl text-black w-[150px] px-4"
                     />
                     <input
                       type="text"
                       value={editData.time}
                       onChange={(e) => handleChange(e, "time")}
-                      className="rounded-3xl text-black w-[100px] px-4 "
+                      className="rounded-3xl text-black w-[100px] px-4"
                     />
                   </>
                 ) : (
@@ -211,6 +308,7 @@ const UpgradeList = ({
               )}
             </div>
           ))}
+
           <div className="w-full flex justify-center items-center">
             <MdOutlinePlaylistAdd
               className="hover:cursor-pointer my-4 w-8 h-8"
