@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { MdOutlineExpandMore } from "react-icons/md";
 
@@ -30,9 +30,7 @@ function formatDate(dateString) {
   const formattedHours = date.getHours().toString().padStart(2, "0");
   const formattedMinutes = date.getMinutes().toString().padStart(2, "0");
 
-  return `${formattedDay}/${formattedMonth}/${formattedYear} - ${formattedHours}:${formattedMinutes}`;
-}
-
+  return `${formattedDay}/${formattedMonth}/${formattedYear} - ${formattedHours}:${formattedMinutes}`;}
 
 
 export default function War() {
