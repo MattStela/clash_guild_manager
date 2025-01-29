@@ -170,6 +170,7 @@ export default function History() {
 
                 <div className="text-center flex flex-col justify-center items-center w-[300px]">
                 {war.opponent.name}
+                
                   <p>
                     <span className="text-gray-500">Estrelas do Oponente:</span>{" "}
                     {war.opponent.stars}

@@ -29,6 +29,10 @@ export default function LateralMenu() {
       title: "Jogadores",
       subitems: [{ name: "Informações", link: "/info" }],
     },
+    {
+      title: "Check",
+      subitems: [{ name: "Timer", link: "/timer" }],
+    },
   ];
 
   return (
@@ -60,7 +64,8 @@ export default function LateralMenu() {
           className="p-2 flex flex-row space-x-1 justify-center items-center text-white"
           href="/#"
         >
-          <FaHome size={20} /><p>Início</p>
+          <FaHome size={20} />
+          <p>Início</p>
         </Link>
 
         {items.map((item, index) => (

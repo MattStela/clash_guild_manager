@@ -170,7 +170,10 @@ export default function War() {
                 {currentWar && currentWar.clan && currentWar.clan.members && (
                   <div className="flex flex-col items-start sm:items-end w-1/2 text-white mx-4">
                     <h2 className="text-xl font-bold">Clã</h2>
-                    <p>{currentWar.clan.name}</p>
+                    <div className="flex flex-row">
+                    <p>{currentWar.clan.tag}</p>
+                    <p>&nbsp;-</p>&nbsp;<p>{currentWar.clan.name}</p>
+                  </div>
                     <p>Ataques - {currentWar.clan.attacks}</p>
 
                     <div className="flex flex-row justify-center items-center">
@@ -311,7 +314,10 @@ export default function War() {
                 {/*=================== clã oponente ===================*/}
                 <div className="flex  flex-col items-start w-1/2 text-white mx-4">
                   <h2 className="text-xl font-bold">Oponente</h2>
-                  <p>{currentWar.opponent.name}</p>
+                  <div className="flex flex-row">
+                    <p>{currentWar.opponent.name}</p>
+                    <p>&nbsp;-</p>&nbsp;<p>{currentWar.opponent.tag}</p>
+                  </div>
                   <p>{currentWar.opponent.attacks} - Ataques</p>
                   <div className="flex flex-row justify-center items-center">
                     {" "}

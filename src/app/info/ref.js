@@ -206,6 +206,6 @@ export const iconUrls = {
     "https://static.wikia.nocookie.net/clashofclans/images/3/3b/Avatar_Super_P.E.K.K.A.png",
   "Hog Glider":
     "https://static.wikia.nocookie.net/clashofclans/images/9/99/Avatar_Hog_Glider.png",
-    "Electrofire Wizard":
+  "Electrofire Wizard":
     "https://static.wikia.nocookie.net/clashofclans/images/6/6f/Avatar_Electrofire_Wizard.png",
 };
