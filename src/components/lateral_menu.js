@@ -30,8 +30,11 @@ export default function LateralMenu() {
       subitems: [{ name: "Informações", link: "/info" }],
     },
     {
-      title: "Check",
-      subitems: [{ name: "Timer", link: "/timer" }],
+      title: "Lembretes",
+      subitems: [
+        { name: "Temporizador", link: "/timer" },
+        { name: "Anotações", link: "/timer" },
+      ],
     },
   ];
 
