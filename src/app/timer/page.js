@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { Line } from "react-chartjs-2";
 
 export default function Timer() {
   const [villageName, setVillageName] = useState("");
@@ -118,6 +117,8 @@ export default function Timer() {
 
   return (
     <div className="flex flex-col items-center text-base font-bold text-gray-400 min-h-screen">
+
+      {/* FORMULÁRIO */}
       <form
         className="flex flex-col items-center justify-between space-y-4 p-4"
         onSubmit={handleSubmit}
@@ -258,39 +259,56 @@ export default function Timer() {
                 <p>
                   <strong>Ouro:</strong>
                 </p>
-                <div className="w-full bg-gray-200 rounded-full h-4">
+
+
+
+                <div className="w-full rounded-full h-4">
+
                   <div
-                    className="bg-yellow-400 h-4 rounded-full"
+                    className="flex justify-center items-start bg-[#DFC147] h-4 rounded-full"
                     style={{
                       width: `${calculatePercentage(
                         data.goldQuantity,
-                        data.goldTotal
+                        data.goldTotal,
                       )}%`,
                     }}
-                  ></div>
+                  >
+
+                    <div className="mx-2 mt-1 rounded-full bg-[#F1DE80] h-[0.3rem] w-full bg-white"></div>
+                  </div>
+
                 </div>
+
+
+
                 <p>
-                  {data.goldQuantity}/{data.goldTotal}
+                <p>{Number(data.goldQuantity).toLocaleString('pt-BR')}</p>
                 </p>
               </div>
               <div className="mt-4">
                 <p>
                   <strong>Elixir:</strong>
                 </p>
-                <div className="w-full bg-gray-200 rounded-full h-4">
+                <div className="w-full rounded-full h-4">
+
                   <div
-                    className="bg-red-400 h-4 rounded-full"
+                    className="flex justify-center items-start bg-[#AF37BB] h-4 rounded-full"
                     style={{
                       width: `${calculatePercentage(
                         data.elixirQuantity,
-                        data.elixirTotal
+                        data.elixirTotal,
                       )}%`,
                     }}
-                  ></div>
+                  >
+
+                    <div className="mx-2 mt-1 rounded-full bg-[#D592DD] h-[0.3rem] w-full bg-white"></div>
+                  </div>
+
                 </div>
-                <p>
-                  {data.elixirQuantity}/{data.elixirTotal}
-                </p>
+                <p>{Number(data.elixirQuantity).toLocaleString('pt-BR')}</p>
+
+
+
               </div>
               <h3 className="text-xl mt-4">Melhorias em Andamento:</h3>
               {data.upgrades.map((upgrade) => (
