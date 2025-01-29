@@ -101,7 +101,7 @@ export default function Timer() {
     const [hours, minutes, seconds] = time.split(":").map(Number);
     return (hours * 3600 + minutes * 60 + seconds) * 1000;
   };
-  
+
 
   const formatTime = (ms) => {
     const totalSeconds = Math.floor(ms / 1000);
@@ -136,6 +136,7 @@ export default function Timer() {
       />
       <UpgradeList
         submittedData={submittedData}
+        setSubmittedData={setSubmittedData}
         timers={timers}
         deleteRecord={deleteRecord}
         formatTime={formatTime}
