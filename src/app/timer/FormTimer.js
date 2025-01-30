@@ -25,8 +25,8 @@ const Form = ({
   };
 
   return (
-    <div className="w-full px-10 flex justify-center items-center flex-col">
-      <div className="bg-gray-800 hover:bg-gray-700 mt-10 flex justify-center items-center cursor-pointer p-4 rounded-3xl" onClick={toggleForm}>
+    <div className="border border-4 border-gray-700 rounded-3xl px-10 flex mt-10 justify-center items-center flex-col">
+      <div className=" flex justify-center items-center cursor-pointer p-4 rounded-3xl" onClick={toggleForm}>
         <h1 className="text-lg font-base">Adicionar registro</h1>
         {isOpen ? <MdKeyboardArrowUp size={24} /> : <MdKeyboardArrowDown size={24} />}
       </div>
