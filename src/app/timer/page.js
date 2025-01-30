@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Form from "./FormTimer";
 import UpgradeList from "./UpgradeList";
-import UpgradeChart from "./UpgradeChart";  // Importando o novo componente
+import UpgradeAscending from "./UpgradeAscending";  // Importando o novo componente
 
 export default function Timer() {
   const [villageName, setVillageName] = useState("");
@@ -143,7 +143,7 @@ export default function Timer() {
         formatTime={formatTime}
         calculatePercentage={calculatePercentage}
       />
-      <UpgradeChart submittedData={submittedData} />
+      <UpgradeAscending submittedData={submittedData} />
     </div>
   );
 }
