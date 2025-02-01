@@ -67,8 +67,8 @@ app.get('/clashofclans/players/:playerTag', (req, res) => {
 app.get('/clashofclans/:clanTag/capitalraidseasons', (req, res) => {
   const clanTag = req.params.clanTag;
   const apiKey = process.env.CLASH_API_KEY;
-  const limit = req.query.limit || 2;
-  const url = `https://api.clashofclans.com/v1/clans/%23${clanTag}/capitalraidseasons?limit=${limit}`;
+  const limit = req.query.limit || 1;
+  const url = `https://api.clashofclans.com/v1/clans/${clanTag}/capitalraidseasons?limit=${limit}`;
   fetchData(url, apiKey, res);
 });
 
