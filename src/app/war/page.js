@@ -30,7 +30,7 @@ const fetchCurrentWar = async (clanTag, setCurrentWar, setError) => {
 };
 
 const War = () => {
-  const [clanTag, setClanTag] = useState("#2RPY2RUCR"); // ID padrão do clã
+  const [clanTag, setClanTag] = useState("#2J8JP9RJR"); // ID padrão do clã
   const [currentWar, setCurrentWar] = useState(null);
   const [error, setError] = useState(null);
 

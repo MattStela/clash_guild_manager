@@ -55,13 +55,17 @@ const MemberGroupList = ({ currentWar, members }) => {
           <h2 className="text-lg font-bold">Resumo de Ataques</h2>
           <div className="flex flex-col justify-center items-center w-full space-y-4 mt-4">
             <div className="flex flex-col justify-center items-center w-full">
-              <h3 className="text-gray-400 font-bold">Sem Ataques</h3>
+              <h3 className="text-gray-400 font-bold">
+                Sem Ataques ({noAttacks.length})
+              </h3>
               {noAttacks.map((member, index) => (
                 <p key={index}>{member.name}</p>
               ))}
             </div>
             <div className="flex flex-col justify-center items-center w-full">
-              <h3 className="text-gray-400 font-bold">Um Ataque</h3>
+              <h3 className="text-gray-400 font-bold">
+                Um Ataque ({oneAttack.length})
+              </h3>
               {oneAttack.map((member, index) => (
                 <p
                   className="flex flex-row justify-center items-center"
@@ -73,7 +77,9 @@ const MemberGroupList = ({ currentWar, members }) => {
               ))}
             </div>
             <div className="flex flex-col justify-center items-center w-full">
-              <h3 className="text-gray-400 font-bold">Dois Ataques</h3>
+              <h3 className="text-gray-400 font-bold">
+                Dois Ataques ({twoAttacks.length})
+              </h3>
               {twoAttacks.map((member, index) => (
                 <p
                   className="flex flex-row justify-center items-center"
