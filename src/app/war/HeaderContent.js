@@ -151,6 +151,7 @@ const Details = ({ currentWar }) => {
           )}
         </div>
       </div>
+      
     </div>
   );
 };

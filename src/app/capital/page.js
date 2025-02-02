@@ -4,6 +4,7 @@ import axios from "axios";
 import MembersAttack from "./MembersAttack"; // Importe o novo componente
 import Attacklog from "./AttackLog";
 import DefenseLog from "./DefenseLog";
+import Image from "next/image";
 
 export default function Capital() {
   const [capitalRaidSeasons, setCapitalRaidSeasons] = useState(null);
@@ -67,7 +68,10 @@ export default function Capital() {
               <p>Estado: {capitalRaidSeasons.items[0].state}</p>
               <p>Começo: {capitalRaidSeasons.items[0].startTime}</p>
               <p>Fim: {capitalRaidSeasons.items[0].startTime}</p>
-              <p>Loot: {capitalRaidSeasons.items[0].capitalTotalLoot}</p>
+              <div className="flex flex-row items-center justify-center">
+                <p>Loot: {capitalRaidSeasons.items[0].capitalTotalLoot}</p>
+                <Image src="/medal.jpg" width={20} height={20} alt="medal" />
+              </div>
               <p>
                 Raids concluídas: {capitalRaidSeasons.items[0].raidsCompleted}
               </p>

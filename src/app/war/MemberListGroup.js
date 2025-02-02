@@ -28,11 +28,11 @@ const MemberGroupList = ({ currentWar, members }) => {
   );
 
   return (
-    <div>
+    <div className="">
       {sortedMembers.map((member, index) => (
         <div
           key={index}
-          className="border border-gray-500 border-4 rounded-xl text-xs flex flex-col justify-center items-center p-2 pt-4 my-4"
+          className="w-[225px] border border-gray-700 border-4 rounded-xl text-xs flex flex-col justify-center items-center p-2 pt-4 my-4"
         >
           <div className="flex space-x-2 flex-row">
             <p>
@@ -67,13 +67,14 @@ const MemberGroupList = ({ currentWar, members }) => {
                 Um Ataque ({oneAttack.length})
               </h3>
               {oneAttack.map((member, index) => (
-                <p
+                <div
                   className="flex flex-row justify-center items-center"
                   key={index}
                 >
-                  {member.name} ({calculateTotalStars(member.attacks)}{" "}
+                  <p>{member.name}</p>&nbsp; (
+                  <p>{calculateTotalStars(member.attacks)}</p>
                   <FaStar className="text-yellow-500 h-2" />)
-                </p>
+                </div>
               ))}
             </div>
             <div className="flex flex-col justify-center items-center w-full">
@@ -81,13 +82,14 @@ const MemberGroupList = ({ currentWar, members }) => {
                 Dois Ataques ({twoAttacks.length})
               </h3>
               {twoAttacks.map((member, index) => (
-                <p
+                <div
                   className="flex flex-row justify-center items-center"
                   key={index}
                 >
-                  {member.name} ({calculateTotalStars(member.attacks)}{" "}
+                  <p>{member.name}</p>&nbsp; (
+                  <p>{calculateTotalStars(member.attacks)}</p>
                   <FaStar className="text-yellow-500 h-2" />)
-                </p>
+                </div>
               ))}
             </div>
           </div>

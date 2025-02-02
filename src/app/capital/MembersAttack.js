@@ -1,7 +1,10 @@
 "use client";
 import React from "react";
+import Image from "next/image";
 
 const MembersAttack = ({ members }) => {
+  const memberNames = members.map((member) => member.name).join(", ");
+
   return (
     <div className="space-y-2 p-4 flex flex-col items-center justify-center mt-4 w-full">
       <h2 className="mb-4 text-lg font-bold">Membros que atacaram:</h2>
@@ -17,12 +20,16 @@ const MembersAttack = ({ members }) => {
             <li>
               ataques: {member.attacks}/{member.attackLimit + member.bonusAttackLimit}
             </li>
-            <li>
-              recursos adquiridos: {member.capitalResourcesLooted}
+            <li className="flex flex-row">
+              recursos adquiridos: {member.capitalResourcesLooted}<Image src="/medal.jpg" width={20} height={20} alt="medal" />
             </li>
           </div>
         ))}
       </ul>
+      <div className="mt-4 text-center">
+        <h3 className="text-lg font-bold">Lista de Membros que atacaram:</h3>
+        <p>{memberNames}</p>
+      </div>
     </div>
   );
 };
