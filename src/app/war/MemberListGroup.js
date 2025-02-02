@@ -29,6 +29,59 @@ const MemberGroupList = ({ currentWar, members }) => {
 
   return (
     <div className="">
+      <div className="font-normal bg-gray-900 rounded-2xl py-4">
+        <div className="flex flex-col items-center">
+          <h2 className="text-lg font-bold">Resumo de Ataques</h2>
+          <div className="flex flex-col justify-center items-center w-full space-y-4 mt-4">
+            <div className="flex flex-col justify-center items-center w-full">
+              <h3 className="text-gray-400 font-bold">
+                Sem Ataques ({noAttacks.length})
+              </h3>
+              <div className="text-red-800 flex items-center flex-col">
+                {noAttacks.map((member, index) => (
+                  <p key={index}>{member.name}</p>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center w-full">
+              <h3 className="text-gray-400 font-bold">
+                Um Ataque ({oneAttack.length})
+              </h3>
+
+              <div className="text-yellow-700 flex items-center flex-col">
+                {oneAttack.map((member, index) => (
+                  <div
+                    className="flex flex-row justify-center items-center"
+                    key={index}
+                  >
+                    <p>{member.name}</p>&nbsp; (
+                    <p>{calculateTotalStars(member.attacks)}</p>
+                    <FaStar className="text-yellow-500 h-2" />)
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="flex flex-col justify-center items-center w-full">
+              <h3 className="text-gray-400 font-bold">
+                Dois Ataques ({twoAttacks.length})
+              </h3>
+
+              <div className="text-green-700 flex items-center flex-col">
+                {twoAttacks.map((member, index) => (
+                  <div
+                    className="flex flex-row justify-center items-center"
+                    key={index}
+                  >
+                    <p>{member.name}</p>&nbsp; (
+                    <p>{calculateTotalStars(member.attacks)}</p>
+                    <FaStar className="text-yellow-500 h-2" />)
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       {sortedMembers.map((member, index) => (
         <div
           key={index}
@@ -50,51 +103,6 @@ const MemberGroupList = ({ currentWar, members }) => {
           {currentWar.state === "inWar" && <MemberDetails member={member} />}
         </div>
       ))}
-      <div className="my-4">
-        <div className="flex flex-col items-center">
-          <h2 className="text-lg font-bold">Resumo de Ataques</h2>
-          <div className="flex flex-col justify-center items-center w-full space-y-4 mt-4">
-            <div className="flex flex-col justify-center items-center w-full">
-              <h3 className="text-gray-400 font-bold">
-                Sem Ataques ({noAttacks.length})
-              </h3>
-              {noAttacks.map((member, index) => (
-                <p key={index}>{member.name}</p>
-              ))}
-            </div>
-            <div className="flex flex-col justify-center items-center w-full">
-              <h3 className="text-gray-400 font-bold">
-                Um Ataque ({oneAttack.length})
-              </h3>
-              {oneAttack.map((member, index) => (
-                <div
-                  className="flex flex-row justify-center items-center"
-                  key={index}
-                >
-                  <p>{member.name}</p>&nbsp; (
-                  <p>{calculateTotalStars(member.attacks)}</p>
-                  <FaStar className="text-yellow-500 h-2" />)
-                </div>
-              ))}
-            </div>
-            <div className="flex flex-col justify-center items-center w-full">
-              <h3 className="text-gray-400 font-bold">
-                Dois Ataques ({twoAttacks.length})
-              </h3>
-              {twoAttacks.map((member, index) => (
-                <div
-                  className="flex flex-row justify-center items-center"
-                  key={index}
-                >
-                  <p>{member.name}</p>&nbsp; (
-                  <p>{calculateTotalStars(member.attacks)}</p>
-                  <FaStar className="text-yellow-500 h-2" />)
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

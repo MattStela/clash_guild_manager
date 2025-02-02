@@ -10,11 +10,11 @@ const MemberDetails = ({ member }) => {
       <div className="w-full">
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-row space-x-2">
-            <div className="flex items-center">
+            <div className="flex text-blue-500 items-center">
               <FaShieldHalved />
               <div>{member.opponentAttacks}</div>
             </div>
-            <div className="flex items-center">
+            <div className="text-red-500 flex items-center">
               <LuSword />
               <div>{member.attacks ? member.attacks.length : 0}</div>
             </div>
